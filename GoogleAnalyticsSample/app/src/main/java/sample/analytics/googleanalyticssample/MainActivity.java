@@ -10,8 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
 
 public class MainActivity extends ActionBarActivity implements OnClickListener{
     private TextView textView[] = new TextView[7];
@@ -32,9 +30,15 @@ public class MainActivity extends ActionBarActivity implements OnClickListener{
             if(view==textView[i]){
                 Toast.makeText(this, "TextView0"+(i+1)+"が押されました", Toast.LENGTH_LONG).show();
 
-                Tracker t = ((AnalyticsSampleApp)getApplication()).getTracker(AnalyticsSampleApp.TrackerName.APP_TRACKER);
-                t.setScreenName("Main"+i);
-                t.send(new HitBuilders.AppViewBuilder().build());
+                // Get tracker.
+                //Tracker t = ((AnalyticsSampleApp)this.getApplication()).getTracker(AnalyticsSampleApp.TrackerName.APP_TRACKER);
+
+                // Set screen name.
+                // Where path is a String representing the screen name.
+                //t.setScreenName("path");
+
+                // Send a screen view.
+                //t.send(new HitBuilders.AppViewBuilder().build());
             }
         }
         return ;

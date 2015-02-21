@@ -1,17 +1,43 @@
 package sample.analytics.googleanalyticssample;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
-public class MainActivity extends ActionBarActivity {
-
+public class MainActivity extends ActionBarActivity implements OnClickListener{
+    private TextView textView[] = new TextView[7];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        for(int i =0;i<7;i++){
+            String resId=String.format("%02d", i+1);
+            textView[i]=(TextView)findViewById(getResources().getIdentifier("textView"+resId , "id" , getPackageName()));
+            textView[i].setOnClickListener(this);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        for(int i =0;i<7;i++){
+            if(view==textView[i]){
+                Toast.makeText(this, "TextView0"+(i+1)+"が押されました", Toast.LENGTH_LONG).show();
+
+                Tracker t = ((AnalyticsSampleApp)getApplication()).getTracker(AnalyticsSampleApp.TrackerName.APP_TRACKER);
+                t.setScreenName("Main"+i);
+                t.send(new HitBuilders.AppViewBuilder().build());
+            }
+        }
+        return ;
     }
 
 
@@ -35,5 +61,15 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);
     }
 }

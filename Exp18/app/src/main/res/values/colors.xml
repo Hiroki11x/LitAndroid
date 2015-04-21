@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--ライトグレー-->
+    <color name="light_gray">#EEEEEE</color>
+    <!--ダークグレー-->
+    <color name="dark_gray">#555555</color>
+    <!--白-->
+    <color name="white">#ffffff</color>
+    <!--ドロイド君カラー-->
+    <color name="droid_green">#A4C639</color>
+</resources>
